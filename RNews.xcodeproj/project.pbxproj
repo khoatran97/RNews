@@ -8,22 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		8460A3D12124E3460013EFE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460A3D02124E3460013EFE5 /* AppDelegate.swift */; };
-		8460A3D32124E3460013EFE5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460A3D22124E3460013EFE5 /* ViewController.swift */; };
+		8460A3D32124E3460013EFE5 /* AddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460A3D22124E3460013EFE5 /* AddController.swift */; };
 		8460A3D62124E3460013EFE5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8460A3D42124E3460013EFE5 /* Main.storyboard */; };
 		8460A3D92124E3460013EFE5 /* RNews.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8460A3D72124E3460013EFE5 /* RNews.xcdatamodeld */; };
 		8460A3DB2124E3460013EFE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8460A3DA2124E3460013EFE5 /* Assets.xcassets */; };
 		8460A3DE2124E3460013EFE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8460A3DC2124E3460013EFE5 /* LaunchScreen.storyboard */; };
+		8460A3ED2124E7770013EFE5 /* DataAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460A3EC2124E7770013EFE5 /* DataAccess.swift */; };
+		8460A3EF2124E7BC0013EFE5 /* RssHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460A3EE2124E7BC0013EFE5 /* RssHandler.swift */; };
+		8460A3F12124E9FC0013EFE5 /* RSSController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460A3F02124E9FC0013EFE5 /* RSSController.swift */; };
+		8460A3F42124EE1F0013EFE5 /* NewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460A3F32124EE1F0013EFE5 /* NewsController.swift */; };
+		8460A3F72124F1660013EFE5 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460A3F62124F1660013EFE5 /* NewsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8460A3CD2124E3460013EFE5 /* RNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8460A3D02124E3460013EFE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8460A3D22124E3460013EFE5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8460A3D22124E3460013EFE5 /* AddController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddController.swift; sourceTree = "<group>"; };
 		8460A3D52124E3460013EFE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8460A3D82124E3460013EFE5 /* RNews.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RNews.xcdatamodel; sourceTree = "<group>"; };
 		8460A3DA2124E3460013EFE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8460A3DD2124E3460013EFE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8460A3DF2124E3460013EFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8460A3EC2124E7770013EFE5 /* DataAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccess.swift; sourceTree = "<group>"; };
+		8460A3EE2124E7BC0013EFE5 /* RssHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssHandler.swift; sourceTree = "<group>"; };
+		8460A3F02124E9FC0013EFE5 /* RSSController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSController.swift; sourceTree = "<group>"; };
+		8460A3F32124EE1F0013EFE5 /* NewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsController.swift; sourceTree = "<group>"; };
+		8460A3F62124F1660013EFE5 /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +66,10 @@
 		8460A3CF2124E3460013EFE5 /* RNews */ = {
 			isa = PBXGroup;
 			children = (
+				8460A3F52124F14C0013EFE5 /* Cells */,
+				8460A3F22124EA080013EFE5 /* Controller */,
+				8460A3EB2124E71D0013EFE5 /* Classes */,
 				8460A3D02124E3460013EFE5 /* AppDelegate.swift */,
-				8460A3D22124E3460013EFE5 /* ViewController.swift */,
 				8460A3D42124E3460013EFE5 /* Main.storyboard */,
 				8460A3DA2124E3460013EFE5 /* Assets.xcassets */,
 				8460A3DC2124E3460013EFE5 /* LaunchScreen.storyboard */,
@@ -65,6 +77,33 @@
 				8460A3D72124E3460013EFE5 /* RNews.xcdatamodeld */,
 			);
 			path = RNews;
+			sourceTree = "<group>";
+		};
+		8460A3EB2124E71D0013EFE5 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8460A3EC2124E7770013EFE5 /* DataAccess.swift */,
+				8460A3EE2124E7BC0013EFE5 /* RssHandler.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		8460A3F22124EA080013EFE5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8460A3D22124E3460013EFE5 /* AddController.swift */,
+				8460A3F02124E9FC0013EFE5 /* RSSController.swift */,
+				8460A3F32124EE1F0013EFE5 /* NewsController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8460A3F52124F14C0013EFE5 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8460A3F62124F1660013EFE5 /* NewsCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,9 +178,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8460A3D32124E3460013EFE5 /* ViewController.swift in Sources */,
+				8460A3D32124E3460013EFE5 /* AddController.swift in Sources */,
 				8460A3D12124E3460013EFE5 /* AppDelegate.swift in Sources */,
 				8460A3D92124E3460013EFE5 /* RNews.xcdatamodeld in Sources */,
+				8460A3F42124EE1F0013EFE5 /* NewsController.swift in Sources */,
+				8460A3ED2124E7770013EFE5 /* DataAccess.swift in Sources */,
+				8460A3F12124E9FC0013EFE5 /* RSSController.swift in Sources */,
+				8460A3F72124F1660013EFE5 /* NewsCell.swift in Sources */,
+				8460A3EF2124E7BC0013EFE5 /* RssHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
