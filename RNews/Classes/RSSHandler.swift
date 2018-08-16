@@ -8,8 +8,8 @@
 
 import Foundation
 
-class RssHandler: NSObject, XMLParserDelegate {
-    static let instance = RssHandler()
+class RSSHandler: NSObject, XMLParserDelegate {
+    static let instance = RSSHandler()
     
     private var source: RSS? = nil
     private var items: [News]? = []
@@ -29,7 +29,7 @@ class RssHandler: NSObject, XMLParserDelegate {
     
     func parseRSS(url: String, completion: @escaping ((_ source: RSS, _ items: [News])->Void)) {
         let urlRequest = URLRequest(url: URL(string: url)!)
-        let task = URLSession.shared.dataTask(with: urlRequest) {(data, respond, error) in
+        /*let task = URLSession.shared.dataTask(with: urlRequest) {(data, respond, error) in
             guard let data = data else {
                 if let error = error {
                     print(error)
@@ -42,6 +42,11 @@ class RssHandler: NSObject, XMLParserDelegate {
             if parser.parse() {
                 completion(self.source!, self.items!)
             }
+        }*/
+        let parser = XMLParser(contentsOf: URL(string: url)!)
+        parser?.delegate = self
+        if (parser?.parse())! {
+            completion(self.source!, self.items!)
         }
         
     }
@@ -92,11 +97,10 @@ class RssHandler: NSObject, XMLParserDelegate {
     
     internal func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
-            let news: News = News()
+            var news = News()
             news.title = title
             news.descrption = descrption
             news.url = link
-            news.pubdate = pubDate
             
             items?.append(news)
             return

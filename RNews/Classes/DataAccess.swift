@@ -20,21 +20,35 @@ class DataAccess {
         // Do something
     }
     
+    // entity -> class
+    func createRSS(entity: EntityRSS) -> RSS {
+        var rss = RSS(id: Int(entity.id), title: entity.title!, url: entity.url!, descrption: entity.descrption!)
+        return rss
+    }
+    
+    func createNews(entity: EntityNews) -> News {
+        var news = News(id: Int(entity.id), title: entity.title!, url: entity.url!, descrption: entity.descrption!, pubDate: entity.pubdate!, sourceId: Int(entity.sourceid))
+        return news
+    }
+    
     // RSS resource
-    func getAllRSS() -> [RSS]? {
-        var result: [RSS]? = []
-        let fetchRequest: NSFetchRequest<RSS> = RSS.fetchRequest()
+    func getAllRSS() -> [RSS] {
+        var result: [EntityRSS]? = []
+        var listRSS: [RSS] = []
+        let fetchRequest: NSFetchRequest<EntityRSS> = EntityRSS.fetchRequest()
         do {
             result = try appDelegate.persistentContainer.viewContext.fetch(fetchRequest)
         }
         catch {
             result = nil
         }
-        
-        return result
+        for rss in result! {
+            listRSS.append(createRSS(entity: rss))
+        }
+        return listRSS
     }
     
-    func addRSS(title: String, url: String, logo: String, description: String) -> Int {
+    func addRSS(title: String, url: String, description: String) -> Int {
         let intCheck = checkRSS(url: url)
         
         if intCheck == NOT_EXIST_CODE {
@@ -42,12 +56,11 @@ class DataAccess {
             
             let id = UserDefaults.standard.integer(forKey: "numberOfRSS") as Int
             
-            let newRSS = RSS(context: objContext)
+            let newRSS = EntityRSS(context: objContext)
             newRSS.id = Int16(id)
             newRSS.title = title
             newRSS.descrption = description
             newRSS.url = url
-            newRSS.logo = logo
             
             try self.appDelegate.saveContext()
             UserDefaults.standard.set(id + 1, forKey: "numberOfRSS")
@@ -67,9 +80,9 @@ class DataAccess {
     }
     
     func updateRSS(id: Int, title: String, url: String, logo: String, description: String) -> Bool {
-        var resultRSS: [RSS] = []
-        var currentRSS: RSS
-        let fetchRequest: NSFetchRequest<RSS> = RSS.fetchRequest()
+        var resultRSS: [EntityRSS] = []
+        var currentRSS: EntityRSS
+        let fetchRequest: NSFetchRequest<EntityRSS> = EntityRSS.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", argumentArray: [String(id)])
         do {
             resultRSS = try appDelegate.persistentContainer.viewContext.fetch(fetchRequest)
@@ -80,11 +93,9 @@ class DataAccess {
         
         if resultRSS.count == 1 {
             currentRSS = resultRSS.first!
-            
             currentRSS.title = title
             currentRSS.descrption = description
             currentRSS.url = url
-            currentRSS.logo = logo
             
             do {
                 try self.appDelegate.saveContext()
@@ -97,8 +108,8 @@ class DataAccess {
     }
     
     func checkRSS(url: String) -> Int {
-        var resultRSS: [RSS] = []
-        let fetchRequest: NSFetchRequest<RSS> = RSS.fetchRequest()
+        var resultRSS: [EntityRSS] = []
+        let fetchRequest: NSFetchRequest<EntityRSS> = EntityRSS.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "url == %@", argumentArray: [url])
         do {
             resultRSS = try appDelegate.persistentContainer.viewContext.fetch(fetchRequest)
@@ -117,16 +128,19 @@ class DataAccess {
     
     // Offline news
     func getAllNews() -> [News]? {
-        var result: [News]? = []
-        let fetchRequest: NSFetchRequest<News> = News.fetchRequest()
+        var result: [EntityNews]? = []
+        var listNews: [News] = []
+        let fetchRequest: NSFetchRequest<EntityNews> = EntityNews.fetchRequest()
         do {
             result = try appDelegate.persistentContainer.viewContext.fetch(fetchRequest)
         }
         catch {
             result = nil
         }
-        
-        return result
+        for rss in result! {
+            listNews.append(createNews(entity: rss))
+        }
+        return listNews
     }
     
     func addNews(title: String, url: String, description: String, pubDate: String, source: Int) -> Int {
@@ -137,7 +151,7 @@ class DataAccess {
             
             let id = UserDefaults.standard.integer(forKey: "numberOfNews") as Int
             
-            let newNews = News(context: objContext)
+            let newNews = EntityNews(context: objContext)
             newNews.id = Int16(id)
             newNews.title = title
             newNews.descrption = description
@@ -164,8 +178,8 @@ class DataAccess {
     }
     
     func checkNews(url: String) -> Int {
-        var resultNews: [News] = []
-        let fetchRequest: NSFetchRequest<News> = News.fetchRequest()
+        var resultNews: [EntityNews] = []
+        let fetchRequest: NSFetchRequest<EntityNews> = EntityNews.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "url == %@", argumentArray: [url])
         do {
             resultNews = try appDelegate.persistentContainer.viewContext.fetch(fetchRequest)

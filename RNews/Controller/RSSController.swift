@@ -41,8 +41,8 @@ class RSSController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RSSCell", for: indexPath)
         
-        cell.textLabel?.text = arrRSS[indexPath.row].title!
-        cell.detailTextLabel?.text = arrRSS[indexPath.row].url!
+        cell.textLabel?.text = arrRSS[indexPath.row].title
+        cell.detailTextLabel?.text = arrRSS[indexPath.row].url
         
         return cell
     }
@@ -93,7 +93,7 @@ class RSSController: UITableViewController {
     */
 
     func updateTable() {
-        arrRSS = DataAccess.instance.getAllRSS()!
+        arrRSS = DataAccess.instance.getAllRSS()
         self.tableView.reloadData()
     }
 }

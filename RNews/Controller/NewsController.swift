@@ -21,6 +21,30 @@ class NewsController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        // Set navigation bar
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.barTintColor = UIColor(red: 0/255.0, green: 223/255.0, blue: 79/255.0, alpha: 1.0)
+        
+        // Set loading view
+        let loadingView = DGElasticPullToRefreshLoadingViewCircle()
+        loadingView.tintColor = UIColor(red: 0/255.0, green: 112/255.0, blue: 19/255.0, alpha: 1.0)
+        
+        // Set table view loading
+        tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
+            RSSHandler.instance.parseRSS(url: "https://vnexpress.net/rss/giai-tri.rss") {(source, items) in
+                print("title: \(source.title)")
+                self?.tableView.dg_stopLoading()
+            }
+            /*DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+                self?.tableView.dg_stopLoading()
+            })*/
+        }, loadingView: loadingView)
+        
+        tableView.dg_setPullToRefreshFillColor(UIColor(red: 0/255.0, green: 223/255.0, blue: 79/255.0, alpha: 1.0))
+        tableView.dg_setPullToRefreshBackgroundColor(self.tableView.backgroundColor!)
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,7 +68,7 @@ class NewsController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
         
         cell.titleLabel.text = arrItems[indexPath.row].title
-        cell.descriptionTextView.text = arrItems[indexPath.row].descrption!.htmlToString
+        cell.descriptionTextView.text = arrItems[indexPath.row].descrption.htmlToString
         
         return cell
     }

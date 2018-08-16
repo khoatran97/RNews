@@ -27,10 +27,10 @@ class AddController: UIViewController {
 
     // Action
     @IBAction func addButton_TouchUpInside(_ sender: Any) {
-        RssHandler.instance.parseRSS(url: urlTextField.text!) {(source, items) in
-            let sourceId = DataAccess.instance.addRSS(title: source.title!, url: source.url!, logo: source.logo!, description: source.descrption!)
+        RSSHandler.instance.parseRSS(url: urlTextField.text!) {(source, items) in
+            let sourceId = DataAccess.instance.addRSS(title: source.title, url: source.url, description: source.descrption)
             for item in items {
-                let resultCode = DataAccess.instance.addNews(title: item.title!, url: item.url!, description: item.descrption!, pubDate: item.pubdate!, source: sourceId)
+                let resultCode = DataAccess.instance.addNews(title: item.title, url: item.url, description: item.descrption, pubDate: item.pubDate, source: sourceId)
                 print(resultCode)
             }
         }
