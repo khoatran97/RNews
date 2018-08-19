@@ -10,8 +10,8 @@ import UIKit
 import CoreData
 
 class DataAccess {
-    private let NOT_EXIST_CODE = -1
-    private let ERROR_CODE = -2
+    private let NOT_EXIST_CODE = Constants.NOT_EXIST_CODE
+    private let ERROR_CODE = Constants.ERROR_CODE
     
     static let instance = DataAccess()
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -22,7 +22,7 @@ class DataAccess {
     
     // entity -> class
     func createRSS(entity: EntityRSS) -> RSS {
-        var rss = RSS(id: Int(entity.id), title: entity.title!, url: entity.url!, descrption: entity.descrption!)
+        var rss = RSS(id: Int(entity.id), title: entity.title!, url: entity.url!, descrption: entity.descrption!, logo: entity.logo!)
         return rss
     }
     
@@ -48,7 +48,7 @@ class DataAccess {
         return listRSS
     }
     
-    func addRSS(title: String, url: String, description: String) -> Int {
+    func addRSS(title: String, url: String, description: String, logo: String) -> Int {
         let intCheck = checkRSS(url: url)
         
         if intCheck == NOT_EXIST_CODE {
@@ -61,8 +61,9 @@ class DataAccess {
             newRSS.title = title
             newRSS.descrption = description
             newRSS.url = url
+            newRSS.logo = logo
             
-            try self.appDelegate.saveContext()
+            self.appDelegate.saveContext()
             UserDefaults.standard.set(id + 1, forKey: "numberOfRSS")
             
             return id
@@ -79,7 +80,7 @@ class DataAccess {
         return -1
     }
     
-    func updateRSS(id: Int, title: String, url: String, logo: String, description: String) -> Bool {
+    func updateRSS(id: Int, title: String, description: String) -> Bool {
         var resultRSS: [EntityRSS] = []
         var currentRSS: EntityRSS
         let fetchRequest: NSFetchRequest<EntityRSS> = EntityRSS.fetchRequest()
@@ -95,7 +96,6 @@ class DataAccess {
             currentRSS = resultRSS.first!
             currentRSS.title = title
             currentRSS.descrption = description
-            currentRSS.url = url
             
             do {
                 try self.appDelegate.saveContext()

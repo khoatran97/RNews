@@ -14,16 +14,54 @@ class RSSHandler: NSObject, XMLParserDelegate {
     private var source: RSS? = nil
     private var items: [News]? = []
     
-    private var title: String = ""
-    private var descrption: String = ""
-    private var link: String = ""
-    private var pubDate: String = ""
+    private var title: String = "" {
+        didSet {
+            title = title.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+    }
+    private var descrption: String = "" {
+        didSet {
+            descrption = descrption.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+    }
+    private var link: String = "" {
+        didSet {
+            link = link.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+    }
+    private var pubDate: String = "" {
+        didSet {
+            pubDate = pubDate.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+    }
     
-    private var titleSource: String = ""
-    private var descrptionSource: String = ""
-    private var linkSource: String = ""
-    private var pubDateSource: String = ""
+    private var titleSource: String = "" {
+        didSet {
+            titleSource = titleSource.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+    }
+    private var descrptionSource: String = "" {
+        didSet {
+            descrptionSource = descrptionSource.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+    }
+    private var linkSource: String = "" {
+        didSet {
+            linkSource = linkSource.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+    }
+    private var pubDateSource: String = "" {
+        didSet {
+            pubDateSource = pubDateSource.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+    }
+    private var logoSource: String = "" {
+        didSet {
+            logoSource = logoSource.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+    }
     
+    private var flgImage: Bool = false
     private var flgItem: Bool = false
     private var currentElement: String = ""
     
@@ -57,6 +95,7 @@ class RSSHandler: NSObject, XMLParserDelegate {
             title = ""
             descrption = ""
             link = ""
+            pubDate = ""
         }
         
         if elementName == "item" {
@@ -86,9 +125,19 @@ class RSSHandler: NSObject, XMLParserDelegate {
             case "description":
                 descrptionSource += string
             case "link":
-                linkSource += string
+                if !flgImage {
+                    linkSource += string
+                }
             case "pubDate":
                 pubDateSource += string
+            case "image":
+                if !flgItem {
+                    flgImage = true
+                }
+            case "url":
+                if flgImage {
+                    logoSource += string
+                }
             default:
                 print("default case")
             }
@@ -97,21 +146,19 @@ class RSSHandler: NSObject, XMLParserDelegate {
     
     internal func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
-            var news = News()
-            news.title = title
-            news.descrption = descrption
-            news.url = link
+            var news = News(id: -1, title: title, url: link, descrption: descrption, pubDate: pubDate, sourceId: -1)
             
             items?.append(news)
+            flgItem = false
             return
         }
         if elementName == "channel" {
-            source = RSS()
-            source?.title = titleSource
-            source?.descrption = descrptionSource
-            source?.url = linkSource
-            
+            source = RSS(id: -1, title: titleSource, url: linkSource, descrption: descrptionSource, logo: logoSource)
             return
+        }
+        
+        if elementName == "image" {
+            flgImage = false
         }
     }
 }

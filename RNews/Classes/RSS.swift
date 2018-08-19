@@ -13,11 +13,14 @@ struct RSS {
     var title: String
     var url: String
     var descrption: String
-    init(id: Int, title: String, url: String, descrption: String) {
+    var logo: String
+    
+    init(id: Int, title: String, url: String, descrption: String, logo: String) {
         self.id = id
         self.title = title
         self.url = url
         self.descrption = descrption
+        self.logo = logo
     }
     
     init() {
@@ -25,5 +28,6 @@ struct RSS {
         self.title = ""
         self.url = ""
         self.descrption = ""
+        self.logo = ""
     }
 }
