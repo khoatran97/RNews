@@ -20,7 +20,7 @@ class DataAccess {
         // Do something
     }
     
-    // entity -> class
+    // Entity -> class
     func createRSS(entity: EntityRSS) -> RSS {
         var rss = RSS(id: Int(entity.id), title: entity.title!, url: entity.url!, descrption: entity.descrption!, logo: entity.logo!)
         return rss
@@ -48,6 +48,7 @@ class DataAccess {
         return listRSS
     }
     
+    // Add new RSS
     func addRSS(title: String, url: String, description: String, logo: String) -> Int {
         let intCheck = checkRSS(url: url)
         
@@ -80,6 +81,7 @@ class DataAccess {
         return -1
     }
     
+    // Update RSS
     func updateRSS(id: Int, title: String, description: String) -> Bool {
         var resultRSS: [EntityRSS] = []
         var currentRSS: EntityRSS
@@ -107,6 +109,7 @@ class DataAccess {
         return false
     }
     
+    // Delete RSS
     func deleteRSS(rss: RSS) -> Bool {
         var resultRSS: [EntityRSS] = []
         var resultNews: [EntityNews] = []
@@ -138,6 +141,7 @@ class DataAccess {
         return true
     }
     
+    // Check if RSS was saved
     func checkRSS(url: String) -> Int {
         var resultRSS: [EntityRSS] = []
         let fetchRequest: NSFetchRequest<EntityRSS> = EntityRSS.fetchRequest()
@@ -157,7 +161,7 @@ class DataAccess {
         }
     }
     
-    // Offline news
+    // Get news
     func getAllNews() -> [News]? {
         var result: [EntityNews]? = []
         var listNews: [News] = []
@@ -171,10 +175,12 @@ class DataAccess {
         for rss in result! {
             listNews.append(createNews(entity: rss))
         }
+        // The latest news first
         listNews.sort(by: {$0.pubDate > $1.pubDate})
         return listNews
     }
     
+    // Add news
     func addNews(title: String, url: String, description: String, pubDate: Date, source: Int) -> Int {
         let intCheck = checkNews(url: url)
         
@@ -209,6 +215,7 @@ class DataAccess {
         return -1
     }
     
+    // Check if news is saved in database
     func checkNews(url: String) -> Int {
         var resultNews: [EntityNews] = []
         let fetchRequest: NSFetchRequest<EntityNews> = EntityNews.fetchRequest()

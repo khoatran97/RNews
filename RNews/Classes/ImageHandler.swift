@@ -16,6 +16,7 @@ class ImageHandler {
         // Do nothing
     }
     
+    // Get Image from a Url
     func getImageFromUrl(url: String, completion: @escaping(UIImage?, Error?) -> Void) {
         if url == "" {
             completion(nil, nil)
@@ -31,6 +32,7 @@ class ImageHandler {
         }.resume()
     }
     
+    // Save image in storage
     func saveImage(image: UIImage, name: String) -> Bool {
         guard let data = UIImageJPEGRepresentation(image, 0.5) ?? UIImagePNGRepresentation(image) else {
             return false
@@ -48,6 +50,7 @@ class ImageHandler {
         }
     }
     
+    // Load image from storage
     func getImage(name: String) -> UIImage? {
         if let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) {
             return UIImage(contentsOfFile: URL(fileURLWithPath: directory.absoluteString).appendingPathComponent(name).path)

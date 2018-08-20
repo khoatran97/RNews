@@ -41,9 +41,11 @@ class UpdateController: UIViewController {
         
         let alertView = UIAlertController(title: "Confirmation", message: "Do you want to update it?", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Yes", style: .default) { (alert) in
+            
+            // Update RSS in database
             let result = DataAccess.instance.updateRSS(id: self.RSS.id, title: title, description: descrption)
             if result {
-                let alert = UIAlertController(title: "Success", message: "Update Succeeded", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Success", message: "Update succeeded", preferredStyle: .alert)
                 self.present(alert, animated: true, completion: nil)
                 let time = DispatchTime.now() + 2
                 DispatchQueue.main.asyncAfter(deadline: time) {
@@ -68,12 +70,14 @@ class UpdateController: UIViewController {
     }
 }
 
+// Pass data from other views
 extension UpdateController: UpdateRssDelegate {
     func updateRss(rss: RSS) {
         self.RSS = rss
     }
 }
 
+// Move controls when keyboard appears
 extension UpdateController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

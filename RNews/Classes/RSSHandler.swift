@@ -66,6 +66,9 @@ class RSSHandler: NSObject, XMLParserDelegate {
     private var currentElement: String = ""
     
     func parseRSS(url: String, completion: @escaping ((_ source: RSS?, _ items: [News]?)->Void)) {
+        if url == "" {
+            return
+        }
         let parser = XMLParser(contentsOf: URL(string: url)!)
         if parser == nil {
             completion(nil, nil)

@@ -81,10 +81,31 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="News" id="uLi-Zm-MuV"/>
                     <connections>
+                        <outlet property="emptyView" destination="Ozb-uQ-uqE" id="3ew-rH-Sno"/>
                         <segue destination="TWh-dn-hb4" kind="show" identifier="segueWebView" id="X8B-y1-eDl"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d7T-Cy-6c9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="Ozb-uQ-uqE">
+                    <rect key="frame" x="0.0" y="0.0" width="339" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There is no news for you. Please pull down to refresh or add a RSS resource" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j48-bd-wiE">
+                            <rect key="frame" x="16" y="0.0" width="307" height="80"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="IOy-rq-nbg" firstAttribute="trailing" secondItem="j48-bd-wiE" secondAttribute="trailing" constant="16" id="59X-yr-pFk"/>
+                        <constraint firstItem="j48-bd-wiE" firstAttribute="bottom" secondItem="IOy-rq-nbg" secondAttribute="bottom" id="qb6-CF-Lqh"/>
+                        <constraint firstItem="j48-bd-wiE" firstAttribute="top" secondItem="IOy-rq-nbg" secondAttribute="top" id="wxV-xY-knr"/>
+                        <constraint firstItem="j48-bd-wiE" firstAttribute="leading" secondItem="IOy-rq-nbg" secondAttribute="leading" constant="16" id="yib-Os-Q5l"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="IOy-rq-nbg"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="477.60000000000002" y="-604.04797601199402"/>
         </scene>
@@ -345,15 +366,15 @@
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pm3-C9-Rwy">
-                                <rect key="frame" x="299" y="542" width="60" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pm3-C9-Rwy">
+                                <rect key="frame" x="314" y="557" width="45" height="45"/>
                                 <color key="backgroundColor" red="0.0" green="0.47877043485641479" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="1dh-bO-FHA"/>
+                                    <constraint firstAttribute="width" constant="45" id="1dh-bO-FHA"/>
                                     <constraint firstAttribute="width" secondItem="pm3-C9-Rwy" secondAttribute="height" multiplier="1:1" id="VzE-Vg-mR3"/>
-                                    <constraint firstAttribute="height" constant="60" id="x4p-wz-s6p"/>
+                                    <constraint firstAttribute="height" constant="45" id="x4p-wz-s6p"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" image="add"/>
                                 <connections>
                                     <action selector="mainAddButton_TouchUpInside:" destination="G0q-Z0-yJ4" eventType="touchUpInside" id="3vf-oy-MDD"/>
                                 </connections>
@@ -528,4 +549,7 @@
             <point key="canvasLocation" x="-322" y="319"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="add" width="32" height="32"/>
+    </resources>
 </document>

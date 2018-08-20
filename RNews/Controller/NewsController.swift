@@ -10,6 +10,8 @@ import UIKit
 
 class NewsController: UITableViewController {
 
+    @IBOutlet var emptyView: UIView!
+    
     var openUrlDelegate: OpenUrlDelegate? = nil
     
     // Data
@@ -25,7 +27,7 @@ class NewsController: UITableViewController {
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.barTintColor = UIColor(red: 0/255.0, green: 223/255.0, blue: 79/255.0, alpha: 1.0)
+        navigationController?.navigationBar.barTintColor = UIColor(red: 255/255.0, green: 149/255.0, blue: 0/255.0, alpha: 1.0)
         
         // Set loading view
         let loadingView = DGElasticPullToRefreshLoadingViewCircle()
@@ -33,30 +35,30 @@ class NewsController: UITableViewController {
         
         // Set table view loading
         tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
-            self?.updateTable()
-            self?.tableView.dg_stopLoading()
+            DispatchQueue.main.async {
+                self?.updateTable()
+                self?.tableView.dg_stopLoading()
+            }
         }, loadingView: loadingView)
         
-        tableView.dg_setPullToRefreshFillColor(UIColor(red: 0/255.0, green: 223/255.0, blue: 79/255.0, alpha: 1.0))
+        tableView.dg_setPullToRefreshFillColor(UIColor(red: 255/255.0, green: 149/255.0, blue: 0/255.0, alpha: 1.0))
         tableView.dg_setPullToRefreshBackgroundColor(self.tableView.backgroundColor!)
+        
+        // Set empty view
+        emptyView.center = self.tableView.center
         
         updateTable()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return listNews.count
     }
     
@@ -73,6 +75,7 @@ class NewsController: UITableViewController {
         return cell
     }
 
+    // Load data from database and refresh table view
     func updateTable() {
         let listSource = DataAccess.instance.getAllRSS()
         for source in listSource {
@@ -86,9 +89,18 @@ class NewsController: UITableViewController {
             }
         }
         listNews = DataAccess.instance.getAllNews()!
+        if listNews.count == 0 {
+            self.tableView.backgroundView = emptyView
+            self.tableView.separatorStyle = .none
+        }
+        else {
+            self.tableView.backgroundView = nil
+            self.tableView.separatorStyle = .singleLine
+        }
         self.tableView.reloadData()
     }
     
+    // Open in web browser when clicking
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let url = listNews[indexPath.row].url
         
@@ -103,6 +115,7 @@ class NewsController: UITableViewController {
         }
     }
     
+    // Set image for tab bar
     func setTabBar() {
         let newsItem = self.tabBarController?.tabBar.items![0]
         newsItem?.image = UIImage(named: "news")?.withRenderingMode(.alwaysOriginal)
@@ -116,7 +129,7 @@ class NewsController: UITableViewController {
     }
 }
 
-
+// Display HTML text
 extension String {
     func htmlToAttributedString() -> NSAttributedString? {
         guard let data = data(using: .utf8)
@@ -130,8 +143,4 @@ extension String {
             return NSAttributedString()
         }
     }
-    
-    /*var htmlToString: String {
-        return htmlToAttributedString?.string ?? ""
-    }*/
 }

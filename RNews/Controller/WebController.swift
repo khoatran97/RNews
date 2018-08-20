@@ -32,15 +32,15 @@ class WebController: UIViewController, OpenUrlDelegate {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
+    // Pass URL from other views
     func openUrl(url: String) {
         RequestedURL = url
     }
 }
 
-
+// Show/Hide spinner (depend on Web view)
 extension WebController: UIWebViewDelegate {
     func webViewDidStartLoad(_ webView: UIWebView) {
         LoadingSpinner.startAnimating()
