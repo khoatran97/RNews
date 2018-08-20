@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8460A3D12124E3460013EFE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460A3D02124E3460013EFE5 /* AppDelegate.swift */; };
-		8460A3D32124E3460013EFE5 /* AddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460A3D22124E3460013EFE5 /* AddController.swift */; };
+		8460A3D32124E3460013EFE5 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460A3D22124E3460013EFE5 /* UpdateController.swift */; };
 		8460A3D62124E3460013EFE5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8460A3D42124E3460013EFE5 /* Main.storyboard */; };
 		8460A3D92124E3460013EFE5 /* RNews.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8460A3D72124E3460013EFE5 /* RNews.xcdatamodeld */; };
 		8460A3DB2124E3460013EFE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8460A3DA2124E3460013EFE5 /* Assets.xcassets */; };
@@ -26,13 +26,10 @@
 		A92341992129B6F900CA53AC /* RSSController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92341982129B6F900CA53AC /* RSSController.swift */; };
 		A923419B2129B90600CA53AC /* RSSCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A923419A2129B90600CA53AC /* RSSCell.swift */; };
 		A923419E2129C2E800CA53AC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A923419D2129C2E800CA53AC /* Constants.swift */; };
-		A92341A62129C77500CA53AC /* Floaty.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92341A02129C77400CA53AC /* Floaty.swift */; };
-		A92341A72129C77500CA53AC /* FloatyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92341A12129C77400CA53AC /* FloatyManager.swift */; };
-		A92341A82129C77500CA53AC /* FloatyWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92341A22129C77400CA53AC /* FloatyWindow.swift */; };
-		A92341A92129C77500CA53AC /* FloatyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92341A32129C77400CA53AC /* FloatyDelegate.swift */; };
-		A92341AA2129C77500CA53AC /* FloatyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92341A42129C77400CA53AC /* FloatyViewController.swift */; };
-		A92341AB2129C77500CA53AC /* FloatyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92341A52129C77400CA53AC /* FloatyItem.swift */; };
+		A971C8B5212A951700DEAA93 /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A971C8B4212A951700DEAA93 /* WebController.swift */; };
+		A971C8B8212AA2AB00DEAA93 /* OpenUrlDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A971C8B7212AA2AB00DEAA93 /* OpenUrlDelegate.swift */; };
 		A99FDF2D212A542F003130FE /* Converters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99FDF2C212A542F003130FE /* Converters.swift */; };
+		A9ACFA1B212AC93000283CB4 /* UpdateRssDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ACFA1A212AC93000283CB4 /* UpdateRssDelegate.swift */; };
 		A9FB10FE2125F7C100F28B72 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FB10FD2125F7C100F28B72 /* News.swift */; };
 		A9FB11002125F7CE00F28B72 /* RSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FB10FF2125F7CE00F28B72 /* RSS.swift */; };
 /* End PBXBuildFile section */
@@ -40,7 +37,7 @@
 /* Begin PBXFileReference section */
 		8460A3CD2124E3460013EFE5 /* RNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8460A3D02124E3460013EFE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8460A3D22124E3460013EFE5 /* AddController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddController.swift; sourceTree = "<group>"; };
+		8460A3D22124E3460013EFE5 /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
 		8460A3D52124E3460013EFE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8460A3D82124E3460013EFE5 /* RNews.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RNews.xcdatamodel; sourceTree = "<group>"; };
 		8460A3DA2124E3460013EFE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -59,13 +56,10 @@
 		A92341982129B6F900CA53AC /* RSSController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSController.swift; sourceTree = "<group>"; };
 		A923419A2129B90600CA53AC /* RSSCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSCell.swift; sourceTree = "<group>"; };
 		A923419D2129C2E800CA53AC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		A92341A02129C77400CA53AC /* Floaty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Floaty.swift; sourceTree = "<group>"; };
-		A92341A12129C77400CA53AC /* FloatyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyManager.swift; sourceTree = "<group>"; };
-		A92341A22129C77400CA53AC /* FloatyWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyWindow.swift; sourceTree = "<group>"; };
-		A92341A32129C77400CA53AC /* FloatyDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyDelegate.swift; sourceTree = "<group>"; };
-		A92341A42129C77400CA53AC /* FloatyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyViewController.swift; sourceTree = "<group>"; };
-		A92341A52129C77400CA53AC /* FloatyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyItem.swift; sourceTree = "<group>"; };
+		A971C8B4212A951700DEAA93 /* WebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebController.swift; sourceTree = "<group>"; };
+		A971C8B7212AA2AB00DEAA93 /* OpenUrlDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenUrlDelegate.swift; sourceTree = "<group>"; };
 		A99FDF2C212A542F003130FE /* Converters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converters.swift; sourceTree = "<group>"; };
+		A9ACFA1A212AC93000283CB4 /* UpdateRssDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRssDelegate.swift; sourceTree = "<group>"; };
 		A9FB10FD2125F7C100F28B72 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		A9FB10FF2125F7CE00F28B72 /* RSS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,7 +94,7 @@
 		8460A3CF2124E3460013EFE5 /* RNews */ = {
 			isa = PBXGroup;
 			children = (
-				A923419F2129C75000CA53AC /* Floaty */,
+				A971C8B6212AA28800DEAA93 /* Protocols */,
 				A923419C2129C2BF00CA53AC /* Helper */,
 				84753F8021250D1C008F3F33 /* DGElasticPullToRefresh */,
 				8460A3F52124F14C0013EFE5 /* Cells */,
@@ -131,9 +125,10 @@
 		8460A3F22124EA080013EFE5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8460A3D22124E3460013EFE5 /* AddController.swift */,
+				8460A3D22124E3460013EFE5 /* UpdateController.swift */,
 				8460A3F32124EE1F0013EFE5 /* NewsController.swift */,
 				A92341982129B6F900CA53AC /* RSSController.swift */,
+				A971C8B4212A951700DEAA93 /* WebController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -168,17 +163,13 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		A923419F2129C75000CA53AC /* Floaty */ = {
+		A971C8B6212AA28800DEAA93 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				A92341A02129C77400CA53AC /* Floaty.swift */,
-				A92341A32129C77400CA53AC /* FloatyDelegate.swift */,
-				A92341A52129C77400CA53AC /* FloatyItem.swift */,
-				A92341A12129C77400CA53AC /* FloatyManager.swift */,
-				A92341A42129C77400CA53AC /* FloatyViewController.swift */,
-				A92341A22129C77400CA53AC /* FloatyWindow.swift */,
+				A971C8B7212AA2AB00DEAA93 /* OpenUrlDelegate.swift */,
+				A9ACFA1A212AC93000283CB4 /* UpdateRssDelegate.swift */,
 			);
-			path = Floaty;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,8 +244,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A92341A72129C77500CA53AC /* FloatyManager.swift in Sources */,
-				8460A3D32124E3460013EFE5 /* AddController.swift in Sources */,
+				A9ACFA1B212AC93000283CB4 /* UpdateRssDelegate.swift in Sources */,
+				A971C8B5212A951700DEAA93 /* WebController.swift in Sources */,
+				8460A3D32124E3460013EFE5 /* UpdateController.swift in Sources */,
+				A971C8B8212AA2AB00DEAA93 /* OpenUrlDelegate.swift in Sources */,
 				8460A3D12124E3460013EFE5 /* AppDelegate.swift in Sources */,
 				84753F8A21250E87008F3F33 /* DGElasticPullToRefreshConstants.swift in Sources */,
 				84753F8821250E87008F3F33 /* DGElasticPullToRefreshLoadingViewCircle.swift in Sources */,
@@ -266,16 +259,11 @@
 				8460A3F42124EE1F0013EFE5 /* NewsController.swift in Sources */,
 				84753F8721250E87008F3F33 /* DGElasticPullToRefreshLoadingView.swift in Sources */,
 				A92341992129B6F900CA53AC /* RSSController.swift in Sources */,
-				A92341A62129C77500CA53AC /* Floaty.swift in Sources */,
 				8460A3ED2124E7770013EFE5 /* DataAccess.swift in Sources */,
-				A92341A92129C77500CA53AC /* FloatyDelegate.swift in Sources */,
 				84753F8621250E86008F3F33 /* DGElasticPullToRefreshView.swift in Sources */,
-				A92341AB2129C77500CA53AC /* FloatyItem.swift in Sources */,
 				A99FDF2D212A542F003130FE /* Converters.swift in Sources */,
 				8460A3F72124F1660013EFE5 /* NewsCell.swift in Sources */,
 				8460A3EF2124E7BC0013EFE5 /* RSSHandler.swift in Sources */,
-				A92341AA2129C77500CA53AC /* FloatyViewController.swift in Sources */,
-				A92341A82129C77500CA53AC /* FloatyWindow.swift in Sources */,
 				A9FB11002125F7CE00F28B72 /* RSS.swift in Sources */,
 				A923419E2129C2E800CA53AC /* Constants.swift in Sources */,
 			);

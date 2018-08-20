@@ -107,7 +107,36 @@ class DataAccess {
         return false
     }
     
-    
+    func deleteRSS(rss: RSS) -> Bool {
+        var resultRSS: [EntityRSS] = []
+        var resultNews: [EntityNews] = []
+        let fetchRequest: NSFetchRequest<EntityRSS> = EntityRSS.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", argumentArray: [rss.id])
+        do {
+            resultRSS = try appDelegate.persistentContainer.viewContext.fetch(fetchRequest)
+            if resultRSS.count == 0 {
+                return false
+            }
+            appDelegate.persistentContainer.viewContext.delete(resultRSS.first!)
+        }
+        catch {
+            return false
+        }
+        
+        let fetchRequestNews: NSFetchRequest<EntityNews> = EntityNews.fetchRequest()
+        fetchRequestNews.predicate = NSPredicate(format: "sourceid == %@", argumentArray: [resultRSS.first?.id])
+        do {
+            resultNews = try appDelegate.persistentContainer.viewContext.fetch(fetchRequestNews)
+            for item in resultNews {
+                appDelegate.persistentContainer.viewContext.delete(item)
+            }
+        }
+        catch {
+            return false
+        }
+        
+        return true
+    }
     
     func checkRSS(url: String) -> Int {
         var resultRSS: [EntityRSS] = []

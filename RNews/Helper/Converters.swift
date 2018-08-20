@@ -10,6 +10,9 @@ import Foundation
 
 class Converters {
     class func stringToDate(string: String) -> Date {
+        if string == "" {
+            return Date()
+        }
         let formatter = DateFormatter()
         formatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss Z"
         let date = formatter.date(from: string)

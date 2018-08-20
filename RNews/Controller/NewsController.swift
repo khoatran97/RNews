@@ -10,17 +10,16 @@ import UIKit
 
 class NewsController: UITableViewController {
 
+    var openUrlDelegate: OpenUrlDelegate? = nil
+    
     // Data
     private var listNews: [News] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        // Set tab bar image
+        setTabBar()
         
         // Set navigation bar
         navigationController?.navigationBar.isTranslucent = false
@@ -78,13 +77,42 @@ class NewsController: UITableViewController {
         let listSource = DataAccess.instance.getAllRSS()
         for source in listSource {
             RSSHandler.instance.parseRSS(url: source.url) { (sourceTmp, items) in
-                for item in items {
+                if items == nil {
+                    return
+                }
+                for item in items! {
                     DataAccess.instance.addNews(title: item.title, url: item.url, description: item.descrption, pubDate: item.pubDate, source: source.id)
                 }
             }
         }
         listNews = DataAccess.instance.getAllNews()!
         self.tableView.reloadData()
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let url = listNews[indexPath.row].url
+        
+        self.performSegue(withIdentifier: "segueWebView", sender: self)
+        self.openUrlDelegate?.openUrl(url: url)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueWebView" {
+            let webView = segue.destination as! WebController
+            self.openUrlDelegate = webView
+        }
+    }
+    
+    func setTabBar() {
+        let newsItem = self.tabBarController?.tabBar.items![0]
+        newsItem?.image = UIImage(named: "news")?.withRenderingMode(.alwaysOriginal)
+        newsItem?.selectedImage = UIImage(named: "news")?.withRenderingMode(.alwaysOriginal)
+        newsItem?.imageInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
+        
+        let rssItem = self.tabBarController?.tabBar.items![1]
+        rssItem?.image = UIImage(named: "rss")?.withRenderingMode(.alwaysOriginal)
+        rssItem?.selectedImage = UIImage(named: "rss")?.withRenderingMode(.alwaysOriginal)
+        rssItem?.imageInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
     }
 }
 

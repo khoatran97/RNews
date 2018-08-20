@@ -19,17 +19,22 @@ class RSSController: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var mainAddButton: UIButton!
     
+    //
     var effect: UIVisualEffect!
+    var updateRssDelegate: UpdateRssDelegate? = nil
     
     // Data
     var listRSS: [RSS] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Set edit button
+        setEditButton()
         
         // Set blur effect
         effect = blurVisualEffectView.effect
         blurVisualEffectView.effect = nil
+        self.view.sendSubview(toBack: blurVisualEffectView)
         
         // Set add view
         addView.layer.cornerRadius = 10
@@ -45,6 +50,10 @@ class RSSController: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         // Load data
         updateTable()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.updateTable()
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,15 +81,41 @@ class RSSController: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         return cell
     }
-
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let result = DataAccess.instance.deleteRSS(rss: listRSS[indexPath.row])
+            if result == true {
+                self.updateTable()
+                self.showAlert(title: "Success", message: "You deleted this RSS successfully")
+            }
+            else {
+                self.showAlert(title: "Error", message: "Cannot delete this RSS")
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "segueUpdate", sender: self)
+        self.updateRssDelegate?.updateRss(rss: listRSS[indexPath.row])
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueUpdate" {
+            let updateView = segue.destination as! UpdateController
+            self.updateRssDelegate = updateView
+        }
+    }
+    
     func updateTable() {
         listRSS = DataAccess.instance.getAllRSS()
         self.rssTableView.reloadData()
     }
     
     func showAddView() {
+        self.view.bringSubview(toFront: self.blurVisualEffectView)
         self.view.addSubview(addView)
-        self.addView.center = self.view.center
+        self.addView.center = self.blurVisualEffectView.center
         self.addView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
         self.addView.alpha = 0
         
@@ -96,9 +131,8 @@ class RSSController: UIViewController, UITableViewDataSource, UITableViewDelegat
             self.addView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
             self.blurVisualEffectView.effect = nil
             self.addView.alpha = 0
+            self.view.sendSubview(toBack: self.blurVisualEffectView)
         }
-        
-        self.view.bringSubview(toFront: (self.tabBarController?.view)!)
     }
     
     func showAlert(title: String, message: String) {
@@ -107,6 +141,26 @@ class RSSController: UIViewController, UITableViewDataSource, UITableViewDelegat
         let time = DispatchTime.now() + 2
         DispatchQueue.main.asyncAfter(deadline: time) {
             alert.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func setEditButton() {
+        let editButton = UIButton(type: .custom)
+        editButton.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        editButton.setImage(UIImage(named: "edit"), for: .normal)
+        editButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        editButton.addTarget(self, action: #selector(editButton_TouchUpInside(sender: )), for: .touchUpInside)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: editButton)
+    }
+    
+    @objc func editButton_TouchUpInside(sender: UIButton) {
+        if (self.rssTableView.isEditing) {
+            self.rssTableView.setEditing(false, animated: true)
+            sender.setImage(UIImage(named: "edit"), for: .normal)
+        }
+        else {
+            self.rssTableView.setEditing(true, animated: true)
+            sender.setImage(UIImage(named: "done"), for: .normal)
         }
     }
     
@@ -120,8 +174,16 @@ class RSSController: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
         
         RSSHandler.instance.parseRSS(url: urlTextField.text!) {(source, items) in
-            let title = self.titleTextField.text == "" ? source.title : self.titleTextField.text
-            let description = self.descriptionTextField.text == "" ? source.descrption : self.descriptionTextField.text
+            if source == nil {
+                self.showAlert(title: "Error", message: "Cannot add this RSS. Please check URL and your connection and try again!")
+                return
+            }
+            
+            let source = source!
+            let items = items!
+            
+            let title = self.titleTextField.text == "" ? source.title : self.titleTextField.text!
+            let description = self.descriptionTextField.text == "" ? source.descrption : self.descriptionTextField.text!
             
             var logo: UIImage? = nil
             let dispatchGroup = DispatchGroup()
@@ -134,7 +196,7 @@ class RSSController: UIViewController, UITableViewDataSource, UITableViewDelegat
             }
             dispatchGroup.wait(timeout: .now() + 5)
             
-            let sourceId = DataAccess.instance.addRSS(title: source.title, url: source.url, description: source.descrption, logo: source.logo)
+            let sourceId = DataAccess.instance.addRSS(title: title, url: source.url, description: description, logo: source.logo)
             if sourceId == Constants.ERROR_CODE {
                 self.hideAddView()
                 self.showAlert(title: "Error", message: "There are some errors. Please try again!")
@@ -157,11 +219,28 @@ class RSSController: UIViewController, UITableViewDataSource, UITableViewDelegat
         self.showAddView()
     }
     
+    
 }
 
 extension RSSController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        moveTextField(textField, distance: -100, isUp: false)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        moveTextField(textField, distance: -100, isUp: true)
+    }
+    
+    func moveTextField(_ textField: UITextField, distance: Int, isUp: Bool) {
+        UIView.beginAnimations("animateTextField", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(0.3)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: CGFloat(isUp ? distance : -distance))
+        UIView.commitAnimations()
     }
 }

@@ -65,37 +65,36 @@ class RSSHandler: NSObject, XMLParserDelegate {
     private var flgItem: Bool = false
     private var currentElement: String = ""
     
-    func parseRSS(url: String, completion: @escaping ((_ source: RSS, _ items: [News])->Void)) {
-        let urlRequest = URLRequest(url: URL(string: url)!)
-        /*let task = URLSession.shared.dataTask(with: urlRequest) {(data, respond, error) in
-            guard let data = data else {
-                if let error = error {
-                    print(error)
-                }
-                return
-            }
-            
-            let parser = XMLParser(data: data)
-            parser.delegate = self
-            if parser.parse() {
-                completion(self.source!, self.items!)
-            }
-        }*/
+    func parseRSS(url: String, completion: @escaping ((_ source: RSS?, _ items: [News]?)->Void)) {
         let parser = XMLParser(contentsOf: URL(string: url)!)
+        if parser == nil {
+            completion(nil, nil)
+        }
         parser?.delegate = self
         if (parser?.parse())! {
-            completion(self.source!, self.items!)
+            completion(self.source, self.items)
+        }
+        else {
+            completion(nil, nil)
         }
         
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
-        if elementName == "item" || elementName == "channel" {
+        if elementName == "item" {
             title = ""
             descrption = ""
             link = ""
             pubDate = ""
+        }
+        
+        if elementName == "channel" {
+            titleSource = ""
+            descrptionSource = ""
+            linkSource = ""
+            pubDateSource = ""
+            logoSource = ""
         }
         
         if elementName == "item" {

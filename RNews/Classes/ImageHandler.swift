@@ -36,7 +36,7 @@ class ImageHandler {
             return false
         }
         
-        guard let directory = try? FileManager.default.url(for: .applicationDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
+        guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
             return false
         }
         
@@ -49,7 +49,7 @@ class ImageHandler {
     }
     
     func getImage(name: String) -> UIImage? {
-        if let directory = try? FileManager.default.url(for: .applicationDirectory, in: .userDomainMask, appropriateFor: nil, create: false) {
+        if let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) {
             return UIImage(contentsOfFile: URL(fileURLWithPath: directory.absoluteString).appendingPathComponent(name).path)
         }
         return nil
