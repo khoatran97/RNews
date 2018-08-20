@@ -40,6 +40,8 @@ class NewsController: UITableViewController {
         
         tableView.dg_setPullToRefreshFillColor(UIColor(red: 0/255.0, green: 223/255.0, blue: 79/255.0, alpha: 1.0))
         tableView.dg_setPullToRefreshBackgroundColor(self.tableView.backgroundColor!)
+        
+        updateTable()
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,15 +62,15 @@ class NewsController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 128.0
+        return 256.0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
         
         cell.titleLabel.text = listNews[indexPath.row].title
-        cell.descriptionTextView.text = listNews[indexPath.row].descrption.htmlToString
-        
+        cell.pubDateLabel.text = Converters.dateToString(date: listNews[indexPath.row].pubDate)
+        cell.descriptionLabel.text = listNews[indexPath.row].descrption.htmlToAttributedString()?.string
         return cell
     }
 
@@ -88,7 +90,7 @@ class NewsController: UITableViewController {
 
 
 extension String {
-    var htmlToAttributedString: NSAttributedString? {
+    func htmlToAttributedString() -> NSAttributedString? {
         guard let data = data(using: .utf8)
             else {
                 return NSAttributedString()
@@ -101,7 +103,7 @@ extension String {
         }
     }
     
-    var htmlToString: String {
+    /*var htmlToString: String {
         return htmlToAttributedString?.string ?? ""
-    }
+    }*/
 }

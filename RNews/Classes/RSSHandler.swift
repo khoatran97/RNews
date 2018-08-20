@@ -146,7 +146,7 @@ class RSSHandler: NSObject, XMLParserDelegate {
     
     internal func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
-            var news = News(id: -1, title: title, url: link, descrption: descrption, pubDate: pubDate, sourceId: -1)
+            var news = News(id: -1, title: title, url: link, descrption: descrption, pubDate: Converters.stringToDate(string: pubDate), sourceId: -1)
             
             items?.append(news)
             flgItem = false

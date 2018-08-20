@@ -17,6 +17,10 @@ class ImageHandler {
     }
     
     func getImageFromUrl(url: String, completion: @escaping(UIImage?, Error?) -> Void) {
+        if url == "" {
+            completion(nil, nil)
+            return
+        }
         URLSession.shared.dataTask(with: URL(string: url)!) { (data, respond, error) in
             guard let data = data, error == nil else {
                 completion(nil, error)

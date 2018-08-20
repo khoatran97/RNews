@@ -32,6 +32,7 @@
 		A92341A92129C77500CA53AC /* FloatyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92341A32129C77400CA53AC /* FloatyDelegate.swift */; };
 		A92341AA2129C77500CA53AC /* FloatyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92341A42129C77400CA53AC /* FloatyViewController.swift */; };
 		A92341AB2129C77500CA53AC /* FloatyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92341A52129C77400CA53AC /* FloatyItem.swift */; };
+		A99FDF2D212A542F003130FE /* Converters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99FDF2C212A542F003130FE /* Converters.swift */; };
 		A9FB10FE2125F7C100F28B72 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FB10FD2125F7C100F28B72 /* News.swift */; };
 		A9FB11002125F7CE00F28B72 /* RSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FB10FF2125F7CE00F28B72 /* RSS.swift */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		A92341A32129C77400CA53AC /* FloatyDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyDelegate.swift; sourceTree = "<group>"; };
 		A92341A42129C77400CA53AC /* FloatyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyViewController.swift; sourceTree = "<group>"; };
 		A92341A52129C77400CA53AC /* FloatyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatyItem.swift; sourceTree = "<group>"; };
+		A99FDF2C212A542F003130FE /* Converters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converters.swift; sourceTree = "<group>"; };
 		A9FB10FD2125F7C100F28B72 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		A9FB10FF2125F7CE00F28B72 /* RSS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				A923419D2129C2E800CA53AC /* Constants.swift */,
+				A99FDF2C212A542F003130FE /* Converters.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				A92341A92129C77500CA53AC /* FloatyDelegate.swift in Sources */,
 				84753F8621250E86008F3F33 /* DGElasticPullToRefreshView.swift in Sources */,
 				A92341AB2129C77500CA53AC /* FloatyItem.swift in Sources */,
+				A99FDF2D212A542F003130FE /* Converters.swift in Sources */,
 				8460A3F72124F1660013EFE5 /* NewsCell.swift in Sources */,
 				8460A3EF2124E7BC0013EFE5 /* RSSHandler.swift in Sources */,
 				A92341AA2129C77500CA53AC /* FloatyViewController.swift in Sources */,

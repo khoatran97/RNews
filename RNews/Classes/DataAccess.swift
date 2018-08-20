@@ -107,6 +107,8 @@ class DataAccess {
         return false
     }
     
+    
+    
     func checkRSS(url: String) -> Int {
         var resultRSS: [EntityRSS] = []
         let fetchRequest: NSFetchRequest<EntityRSS> = EntityRSS.fetchRequest()
@@ -140,10 +142,11 @@ class DataAccess {
         for rss in result! {
             listNews.append(createNews(entity: rss))
         }
+        listNews.sort(by: {$0.pubDate > $1.pubDate})
         return listNews
     }
     
-    func addNews(title: String, url: String, description: String, pubDate: String, source: Int) -> Int {
+    func addNews(title: String, url: String, description: String, pubDate: Date, source: Int) -> Int {
         let intCheck = checkNews(url: url)
         
         if intCheck == NOT_EXIST_CODE {

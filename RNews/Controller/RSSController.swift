@@ -17,6 +17,7 @@ class RSSController: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var mainAddButton: UIButton!
     
     var effect: UIVisualEffect!
     
@@ -25,7 +26,7 @@ class RSSController: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Set blur effect
         effect = blurVisualEffectView.effect
         blurVisualEffectView.effect = nil
@@ -34,12 +35,13 @@ class RSSController: UIViewController, UITableViewDataSource, UITableViewDelegat
         addView.layer.cornerRadius = 10
         
         // Add float button
-        let floatButton = Floaty()
-        floatButton.addItem(title: "Add new RSS") { (item) in
-            self.showAddView()
-            floatButton.close()
-        }
-        self.view.addSubview(floatButton)
+        self.mainAddButton.layer.cornerRadius = 0.5 * self.mainAddButton.frame.width
+        
+        // Set navigation bar
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.barTintColor = UIColor(red: 0/255.0, green: 223/255.0, blue: 79/255.0, alpha: 1.0)
         
         // Load data
         updateTable()
@@ -95,12 +97,14 @@ class RSSController: UIViewController, UITableViewDataSource, UITableViewDelegat
             self.blurVisualEffectView.effect = nil
             self.addView.alpha = 0
         }
+        
+        self.view.bringSubview(toFront: (self.tabBarController?.view)!)
     }
     
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         self.present(alert, animated: true, completion: nil)
-        let time = DispatchTime.now() + 5
+        let time = DispatchTime.now() + 2
         DispatchQueue.main.asyncAfter(deadline: time) {
             alert.dismiss(animated: true, completion: nil)
         }
@@ -119,12 +123,12 @@ class RSSController: UIViewController, UITableViewDataSource, UITableViewDelegat
             let title = self.titleTextField.text == "" ? source.title : self.titleTextField.text
             let description = self.descriptionTextField.text == "" ? source.descrption : self.descriptionTextField.text
             
-            var logo: UIImage!
+            var logo: UIImage? = nil
             let dispatchGroup = DispatchGroup()
             dispatchGroup.enter()
             ImageHandler.instance.getImageFromUrl(url: source.logo) { (image, error) in
                 if image != nil {
-                    logo = image!
+                    logo = image
                 }
                 dispatchGroup.leave()
             }
@@ -133,18 +137,26 @@ class RSSController: UIViewController, UITableViewDataSource, UITableViewDelegat
             let sourceId = DataAccess.instance.addRSS(title: source.title, url: source.url, description: source.descrption, logo: source.logo)
             if sourceId == Constants.ERROR_CODE {
                 self.hideAddView()
-                self.showAlert(title: "Error", message: "Cannot add")
+                self.showAlert(title: "Error", message: "There are some errors. Please try again!")
                 return
+            }
+            if logo != nil {
+                ImageHandler.instance.saveImage(image: logo!, name: "\(sourceId).jpg")
             }
             for item in items {
                 let resultCode = DataAccess.instance.addNews(title: item.title, url: item.url, description: item.descrption, pubDate: item.pubDate, source: sourceId)
                 print(resultCode)
             }
             self.hideAddView()
-            self.showAlert(title: "s", message: "s")
+            self.showAlert(title: "Success", message: "You added new RSS successfully")
             self.updateTable()
         }
     }
+    
+    @IBAction func mainAddButton_TouchUpInside(_ sender: Any) {
+        self.showAddView()
+    }
+    
 }
 
 extension RSSController: UITextFieldDelegate {

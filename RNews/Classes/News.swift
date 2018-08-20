@@ -13,9 +13,9 @@ struct News {
     var title: String
     var url: String
     var descrption: String
-    var pubDate: String
+    var pubDate: Date
     var sourceId: Int
-    init(id: Int, title: String, url: String, descrption: String, pubDate: String, sourceId: Int) {
+    init(id: Int, title: String, url: String, descrption: String, pubDate: Date, sourceId: Int) {
         self.id = id
         self.title = title
         self.url = url
@@ -29,7 +29,7 @@ struct News {
         self.title = ""
         self.url = ""
         self.descrption = ""
-        self.pubDate = ""
+        self.pubDate = Date()
         self.sourceId = -1
     }
 }

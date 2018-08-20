@@ -12,14 +12,15 @@ class NewsCell: UITableViewCell {
 
     // Outlet
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var pubDateLabel: UILabel!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         titleLabel.text = ""
-        descriptionTextView.text = ""
+        descriptionLabel.text = ""
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
